@@ -28,31 +28,46 @@ git clone [repository-url]
 cd tourism-ar-app
 ```
 
-2. **Install dependencies**
+2. **Set up environment variables**
 ```bash
-npm run setup
+# Frontend environment
+cp frontend/.env.example frontend/.env
+
+# Backend environment
+cp backend/api-gateway/.env.example backend/api-gateway/.env
 ```
 
-3. **Set up environment variables**
+3. **Start Docker services (databases, etc.)**
 ```bash
-cp .env.example .env
-# Edit .env with your configuration
+docker-compose up -d
 ```
 
-4. **Start development environment**
+4. **Install and run the backend**
 ```bash
+cd backend/api-gateway
+npm install
 npm run dev
 ```
 
-This will:
-- Start all required services via Docker
-- Launch the frontend development server
-- Set up the database with initial schema
+5. **Install and run the frontend (in a new terminal)**
+```bash
+cd frontend
+npm install
+npm start
+```
 
-5. **Access the application**
+6. **Set up the database**
+```bash
+# Connect to PostgreSQL and run migrations
+docker exec -i tourism-ar-postgres psql -U ar_user -d ar_tourism_db < backend/shared/database/migrations/001_initial_schema.sql
+```
+
+7. **Access the application**
 - Frontend: http://localhost:3000
-- API Gateway: http://localhost:4000/graphql
-- MinIO Console: http://localhost:9001 (minioadmin/minioadmin123)
+- API Gateway GraphQL Playground: http://localhost:4000/graphql
+- PostgreSQL: localhost:5432 (user: ar_user, password: ar_password)
+- MongoDB: localhost:27017
+- Redis: localhost:6379
 
 ## Project Structure
 
