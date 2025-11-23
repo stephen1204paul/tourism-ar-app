@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import apolloClient from './services/api/apolloClient';
 import ARExperiencePage from './pages/ARExperiencePage';
+import POIDetailPage from './pages/POIDetailPage';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -67,6 +68,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/ar" element={<ARExperiencePage />} />
+          <Route path="/poi/:id" element={<POIDetailPage />} />
         </Routes>
       </Router>
     </ApolloProvider>
