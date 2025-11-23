@@ -3,8 +3,11 @@ import { ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import apolloClient from './services/api/apolloClient';
+import { AppProvider } from './store';
 import ARExperiencePage from './pages/ARExperiencePage';
 import POIDetailPage from './pages/POIDetailPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -63,14 +66,18 @@ const HomePage: React.FC = () => {
 function App() {
   return (
     <ApolloProvider client={apolloClient}>
-      <GlobalStyle />
-      <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/ar" element={<ARExperiencePage />} />
-          <Route path="/poi/:id" element={<POIDetailPage />} />
-        </Routes>
-      </Router>
+      <AppProvider>
+        <GlobalStyle />
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/ar" element={<ARExperiencePage />} />
+            <Route path="/poi/:id" element={<POIDetailPage />} />
+          </Routes>
+        </Router>
+      </AppProvider>
     </ApolloProvider>
   );
 }
